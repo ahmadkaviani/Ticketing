@@ -5,11 +5,13 @@ import axios from 'axios';
 import { Ticket } from './Ticket';
 import NavBar from './NavBar';
 import TicketsDashboard from './TicketsDashboard';
+import TicketDetail from './TicketDetail';
 
 function App() {
 
 
   const [tickets, setTickets] = React.useState<Ticket[]>([]);
+  const [selectedTicket, setSelectedTicket] = React.useState<Ticket | undefined>(undefined);
 
   useEffect(() => {
     axios.get('http://localhost:5152/api/tickets/')
@@ -17,11 +19,17 @@ function App() {
 
   }, []);
 
+  function handleSelectTicket(id:string) {
+    setSelectedTicket(tickets.find(x => x.id == id));
+  }
+
+
   return (
     <>
       <NavBar></NavBar>
-      <TicketsDashboard tickets={tickets} ></TicketsDashboard>
-    </> 
+      <TicketsDashboard tickets={tickets} selectedTicket={selectedTicket} handleSelectedTicket={handleSelectTicket} ></TicketsDashboard>
+
+    </>
   );
 }
 
