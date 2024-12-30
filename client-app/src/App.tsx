@@ -5,7 +5,7 @@ import axios from 'axios';
 import { Ticket } from './Ticket';
 import NavBar from './NavBar';
 import TicketsDashboard from './TicketsDashboard';
-import TicketDetail from './TicketDetail';
+import {v4 as uuid} from 'uuid'
 
 function App() {
 
@@ -44,8 +44,12 @@ function App() {
   {
     ticket.id 
       ? setTickets([...tickets.filter(x => x.id != ticket.id),ticket])
-      : setTickets([...tickets,ticket]);
+      : setTickets([...tickets,{...ticket,id:uuid()}]);
+  }
 
+  function deleteTicket(id:string)
+  {
+      setTickets([...tickets.filter(x => x.id != id)]);
   }
 
   return (
@@ -59,7 +63,8 @@ function App() {
         editMode={editMode}
         handleFormOpen={handleFormOpen}
         handleFormClose={handleFormClose}
-        createOrEditTicket={createOrEditTicket}  ></TicketsDashboard>
+        createOrEditTicket={createOrEditTicket} 
+        deleteTicket={deleteTicket} ></TicketsDashboard>
         
 
     </>

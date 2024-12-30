@@ -14,15 +14,16 @@ interface Props {
     handleFormOpen: (id: string) => void;
     handleFormClose: () => void;
     createOrEditTicket : (ticket:Ticket) => void;
+    deleteTicket : (id: string) => void;
 }
 
-export default function TicketsDashboard({ tickets, selectedTicket, handleSelectTicket, handleCancelTicket, editMode, handleFormOpen, handleFormClose, createOrEditTicket }: Props) {
+export default function TicketsDashboard({ tickets, selectedTicket, handleSelectTicket, handleCancelTicket, editMode, handleFormOpen, handleFormClose, createOrEditTicket, deleteTicket }: Props) {
     return (
         <Container style={{ marginTop: '7em' }} >
             <Grid>
                 <Grid.Column width={10}>
 
-                    <TicketList tickets={tickets} handleSelectTicket={handleSelectTicket} ></TicketList>
+                    <TicketList tickets={tickets} handleSelectTicket={handleSelectTicket} deleteTicket={deleteTicket} ></TicketList>
 
                 </Grid.Column>
                 <Grid.Column width={6}>
