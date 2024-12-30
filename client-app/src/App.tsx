@@ -12,6 +12,7 @@ function App() {
 
   const [tickets, setTickets] = React.useState<Ticket[]>([]);
   const [selectedTicket, setSelectedTicket] = React.useState<Ticket | undefined>(undefined);
+  const [editMode, setEditMode] = React.useState<boolean>(false);
 
   useEffect(() => {
     axios.get('http://localhost:5152/api/tickets/')
@@ -23,11 +24,34 @@ function App() {
     setSelectedTicket(tickets.find(x => x.id == id));
   }
 
+  function handleCancelTicket() {
+    setSelectedTicket(undefined);
+  }
+
+  function handleFormOpen(id? : string)
+  {
+    id ? handleSelectTicket(id) : handleCancelTicket();
+    setEditMode(true);
+  }
+
+  function handleFormClose()
+  {
+    handleCancelTicket();
+    setEditMode(false);
+  }
+
 
   return (
     <>
       <NavBar></NavBar>
-      <TicketsDashboard tickets={tickets} selectedTicket={selectedTicket} handleSelectedTicket={handleSelectTicket} ></TicketsDashboard>
+      <TicketsDashboard 
+        tickets={tickets} 
+        selectedTicket={selectedTicket} 
+        handleSelectTicket={handleSelectTicket} 
+        handleCancelTicket={handleCancelTicket} 
+        editMode={editMode}
+        handleFormOpen={handleFormOpen}
+        handleFormClose={handleFormClose}  ></TicketsDashboard>
 
     </>
   );

@@ -3,10 +3,10 @@ import { Ticket } from './Ticket';
 
 interface Props {
     tickets: Ticket[];
-    handleSelectedTicket : (id:string) => void;
+    handleSelectTicket : (id:string) => void;
 }
 
-export default function TicketList({ tickets, handleSelectedTicket }: Props) {
+export default function TicketList({ tickets, handleSelectTicket }: Props) {
     return (
         <Segment>
             <Item.Group divided>
@@ -19,7 +19,7 @@ export default function TicketList({ tickets, handleSelectedTicket }: Props) {
                                 <div>{item.id}</div>
                             </Item.Description>
                             <Item.Extra>
-                                <Button floated='right' content='View' onClick={() => {handleSelectedTicket(item.id);}} color='blue'></Button>
+                                <Button floated='right' content='View' onClick={() => {handleSelectTicket(item.id);}} color='blue'></Button>
                                 <Label basic content={item.status}></Label>
                             </Item.Extra>
                         </Item.Content>

@@ -1,17 +1,18 @@
 import { Segment, Form, Button  } from "semantic-ui-react";
 
 interface Props {
-    handleSelectedTicket : (id:string) => void;
+    handleFormClose : () => void;
+
 }
 
-export default function TicketForm({handleSelectedTicket}:Props)
+export default function TicketForm({handleFormClose}:Props)
 {
     return (
         <Segment clearing>
             <Form>
                 <Form.Input placeholder='title'></Form.Input>
                 <Button floated="right" positive type="submit" content="submit"></Button>
-                <Button floated="right" content="cancel" onClick={() => {handleSelectedTicket('')}}></Button>
+                <Button floated="right" content="cancel" onClick={() => {handleFormClose()}}></Button>
             </Form>
         </Segment>
     );

@@ -7,27 +7,35 @@ import TicketForm from './TicketForm';
 
 interface Props {
     tickets: Ticket[];
-    selectedTicket:Ticket | undefined;
-    handleSelectedTicket : (id:string) => void;
+    selectedTicket: Ticket | undefined;
+    handleSelectTicket: (id: string) => void;
+    handleCancelTicket: () => void;
+    editMode: boolean;
+    handleFormOpen: (id: string) => void;
+    handleFormClose: () => void;
 }
 
-export default function TicketsDashboard({ tickets, selectedTicket, handleSelectedTicket }: Props) {
+export default function TicketsDashboard({ tickets, selectedTicket, handleSelectTicket, handleCancelTicket, editMode, handleFormOpen, handleFormClose }: Props) {
     return (
         <Container style={{ marginTop: '7em' }} >
             <Grid>
                 <Grid.Column width={10}>
 
-                    <TicketList tickets={tickets} handleSelectedTicket={handleSelectedTicket} ></TicketList>
+                    <TicketList tickets={tickets} handleSelectTicket={handleSelectTicket} ></TicketList>
 
                 </Grid.Column>
                 <Grid.Column width={6}>
                     {selectedTicket &&
-                        <TicketDetail ticket={selectedTicket} />
-
+                        <>
+                            <TicketDetail ticket={selectedTicket} handleCancelTicket={handleCancelTicket} handleFormOpen={handleFormOpen} />
+                        </>
                     }
-                    <TicketForm handleSelectedTicket={handleSelectedTicket}></TicketForm>
+                    {editMode &&
+                        <TicketForm handleFormClose={handleFormClose}></TicketForm>
+                    }
+
                 </Grid.Column>
             </Grid>
-        </Container >
+        </Container>
     );
 }
