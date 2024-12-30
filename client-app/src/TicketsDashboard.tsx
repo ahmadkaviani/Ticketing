@@ -13,9 +13,10 @@ interface Props {
     editMode: boolean;
     handleFormOpen: (id: string) => void;
     handleFormClose: () => void;
+    createOrEditTicket : (ticket:Ticket) => void;
 }
 
-export default function TicketsDashboard({ tickets, selectedTicket, handleSelectTicket, handleCancelTicket, editMode, handleFormOpen, handleFormClose }: Props) {
+export default function TicketsDashboard({ tickets, selectedTicket, handleSelectTicket, handleCancelTicket, editMode, handleFormOpen, handleFormClose, createOrEditTicket }: Props) {
     return (
         <Container style={{ marginTop: '7em' }} >
             <Grid>
@@ -31,7 +32,7 @@ export default function TicketsDashboard({ tickets, selectedTicket, handleSelect
                         </>
                     }
                     {editMode &&
-                        <TicketForm handleFormClose={handleFormClose}></TicketForm>
+                        <TicketForm handleFormClose={handleFormClose} selectedTicket={selectedTicket} createOrEditTicket={createOrEditTicket} ></TicketForm>
                     }
 
                 </Grid.Column>

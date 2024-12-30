@@ -40,6 +40,13 @@ function App() {
     setEditMode(false);
   }
 
+  function createOrEditTicket(ticket:Ticket)
+  {
+    ticket.id 
+      ? setTickets([...tickets.filter(x => x.id != ticket.id),ticket])
+      : setTickets([...tickets,ticket]);
+
+  }
 
   return (
     <>
@@ -51,7 +58,9 @@ function App() {
         handleCancelTicket={handleCancelTicket} 
         editMode={editMode}
         handleFormOpen={handleFormOpen}
-        handleFormClose={handleFormClose}  ></TicketsDashboard>
+        handleFormClose={handleFormClose}
+        createOrEditTicket={createOrEditTicket}  ></TicketsDashboard>
+        
 
     </>
   );
