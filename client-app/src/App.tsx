@@ -43,7 +43,7 @@ function App() {
 
   return (
     <>
-      <NavBar></NavBar>
+      <NavBar handleFormOpen={handleFormOpen} ></NavBar>
       <TicketsDashboard 
         tickets={tickets} 
         selectedTicket={selectedTicket} 
