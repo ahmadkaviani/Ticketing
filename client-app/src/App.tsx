@@ -6,6 +6,7 @@ import { Ticket } from './Ticket';
 import NavBar from './NavBar';
 import TicketsDashboard from './TicketsDashboard';
 import {v4 as uuid} from 'uuid'
+import agent from './api/agent'
 
 function App() {
 
@@ -15,8 +16,7 @@ function App() {
   const [editMode, setEditMode] = React.useState<boolean>(false);
 
   useEffect(() => {
-    axios.get('http://localhost:5152/api/tickets/')
-      .then(response => { setTickets(response.data) })
+    agent.Tickets.list().then(response => { setTickets(response) })
 
   }, []);
 
