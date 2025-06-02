@@ -1,6 +1,9 @@
-using Persistence;
-using Microsoft.EntityFrameworkCore;
 using API.Extentions;
+using Domain;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddApplicationServices(builder.Configuration);
+builder.Services.AddIdentityServices(builder.Configuration);
 
 var app = builder.Build();
 
@@ -27,18 +31,29 @@ var services = scope.ServiceProvider;
 try
 {
     var context = services.GetRequiredService<DataContext>();
+    var userManager = services.GetRequiredService<UserManager<AppUser>>();
     context.Database.Migrate();
+    await DbInitializer.SeedData(context, userManager);
+
 }
 catch (Exception ex)
 {
     var logger = services.GetRequiredService<ILogger<Program>>();
-    logger.LogError(ex,"Error in migration");
+    logger.LogError(ex, "Error in migration");
 }
-
 
 var summaries = new[]
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+    "Freezing",
+    "Bracing",
+    "Chilly",
+    "Cool",
+    "Mild",
+    "Warm",
+    "Balmy",
+    "Hot",
+    "Sweltering",
+    "Scorching",
 };
 
 app.MapControllers();
@@ -57,6 +72,7 @@ app.MapControllers();
 // })
 // .WithName("GetWeatherForecast")
 // .WithOpenApi();
+
 
 app.Run();
 

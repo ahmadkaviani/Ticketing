@@ -21,7 +21,7 @@ namespace Application.Tickets
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
                  _dataContext.Tickets.Add(request.Ticket);
-                 _dataContext.SaveChanges();
+                 await _dataContext.SaveChangesAsync();
                  return Unit.Value;
             }
         }
