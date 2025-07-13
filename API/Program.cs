@@ -32,7 +32,7 @@ try
 {
     var context = services.GetRequiredService<DataContext>();
     var userManager = services.GetRequiredService<UserManager<AppUser>>();
-    context.Database.Migrate();
+    await context.Database.MigrateAsync();
     await DbInitializer.SeedData(context, userManager);
 
 }
@@ -69,6 +69,7 @@ app.MapControllers();
 //         ))
 //         .ToArray();
 //     return forecast;
+
 // })
 // .WithName("GetWeatherForecast")
 // .WithOpenApi();
