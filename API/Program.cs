@@ -1,7 +1,9 @@
 using API.Extentions;
 using Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -9,9 +11,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(opt =>
+{
+    // var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+    // opt.Filters.Add(new AuthorizeFilter(policy));
+});
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
+
+builder.Services.AddAuthentication();
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -22,8 +31,19 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// Middleware order corrected:
 app.UseHttpsRedirection();
-app.UseRouting();
+
+app.UseRouting(); // FIRST
+
+app.UseCors("CorsPolicy"); // AFTER UseRouting
+
+app.UseAuthentication();   // BEFORE UseAuthorization
+app.UseAuthorization();    // AFTER UseRouting, BEFORE MapControllers
+
+app.MapControllers();
+
+
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;

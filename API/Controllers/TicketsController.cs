@@ -1,6 +1,7 @@
 using Application.Tickets;
 using Domain;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
@@ -9,12 +10,14 @@ namespace API.Controllers
 {
     public class TicketsController : BaseApiController
     {
+        //[AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<List<Ticket>>> GetTickets()
         {
             return await Mediator.Send(new List.Query());
         }
 
+        //[Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<Ticket>> GetTicket(Guid id)
         {

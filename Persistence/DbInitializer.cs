@@ -25,7 +25,20 @@ public class DbInitializer
 
             foreach (var user in users)
             {
-                await userManager.CreateAsync(user, "123456");
+                var result = await userManager.CreateAsync(user, "Password123!");
+
+                if (!result.Succeeded)
+                {
+                    Console.WriteLine("User creation failed:");
+                    foreach (var error in result.Errors)
+                    {
+                        Console.WriteLine($"- {error.Description}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("User created successfully.");
+                }
             }
         }
 
