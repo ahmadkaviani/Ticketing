@@ -4,13 +4,18 @@ import 'semantic-ui-css/semantic.min.css'
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { RouterProvider } from 'react-router-dom';
+import { router } from './router/Routes';
+import { store, StoreContext } from './stores/store';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <StoreContext.Provider value={store} >
+      <RouterProvider router={router} />
+    </StoreContext.Provider>
   </React.StrictMode>
 );
 

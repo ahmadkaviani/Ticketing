@@ -7,9 +7,13 @@ import NavBar from './NavBar';
 import TicketsDashboard from './TicketsDashboard';
 import {v4 as uuid} from 'uuid'
 import agent from './api/agent'
+import { useStore } from './stores/store';
+import { Button } from 'semantic-ui-react';
+import { observer } from 'mobx-react-lite';
 
 function App() {
 
+  const {ticketStore} = useStore();
 
   const [tickets, setTickets] = React.useState<Ticket[]>([]);
   const [selectedTicket, setSelectedTicket] = React.useState<Ticket | undefined>(undefined);
@@ -55,6 +59,9 @@ function App() {
   return (
     <>
       <NavBar handleFormOpen={handleFormOpen} ></NavBar>
+      <br /><br /><br /><br /><br />
+      <h2>{ticketStore.title}</h2>
+      <Button content="Add" positive onClick={ticketStore.setTitle}></Button>
       <TicketsDashboard 
         tickets={tickets} 
         selectedTicket={selectedTicket} 
@@ -71,4 +78,4 @@ function App() {
   );
 }
 
-export default App;
+export default observer(App);
