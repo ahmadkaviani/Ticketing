@@ -6,17 +6,14 @@ import * as Yup from "yup";
 import { title } from "process";
 import { error } from "console";
 import MyTextInput from "./common/form/MyTextInput";
+import { useStore } from "./stores/store";
 
-interface Props {
-    selectedTicket: Ticket | undefined;
-    handleFormClose: () => void;
-    createOrEditTicket: (ticket: Ticket) => void;
 
-}
+export default function TicketForm() {
 
-export default function TicketForm({ selectedTicket, handleFormClose, createOrEditTicket }: Props) {
+    const {ticketStore}= useStore();
 
-    const initialState = selectedTicket ??
+    const initialState =  ticketStore.selectedTicket ??
     {
         id: '',
         title: '',
@@ -34,7 +31,7 @@ export default function TicketForm({ selectedTicket, handleFormClose, createOrEd
     function handleFormSubmit(ticket: Ticket)
     {
         console.log(ticket);
-        createOrEditTicket(ticket);
+        //createOrEditTicket(ticket);
     }
 
     // function handleInputChange(event : ChangeEvent<HTMLInputElement>)
@@ -59,7 +56,7 @@ export default function TicketForm({ selectedTicket, handleFormClose, createOrEd
                         </FormField> */}
                         <MyTextInput name="title" placeholder="title"></MyTextInput>
                         <Button disabled={!isValid || isSubmitting || !dirty} floated="right" positive type="submit" content="submit"></Button>
-                        <Button floated="right" content="cancel" onClick={() => { handleFormClose() }}></Button>
+                        <Button floated="right" content="cancel" onClick={() => { ticketStore.cancelTicket();} }></Button>
                     </Form>
                 )
                 }

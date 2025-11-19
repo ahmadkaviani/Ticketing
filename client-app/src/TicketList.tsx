@@ -1,17 +1,15 @@
 import { Segment, Item, Button, Label } from 'semantic-ui-react';
 import { Ticket } from './Ticket';
+import { useStore } from './stores/store';
 
-interface Props {
-    tickets: Ticket[];
-    handleSelectTicket: (id: string) => void;
-    deleteTicket : (id: string) => void;
-}
+export default function TicketList() {
 
-export default function TicketList({ tickets, handleSelectTicket, deleteTicket }: Props) {
+    const {ticketStore} = useStore();
+
     return (
         <Segment>
             <Item.Group divided>
-                {tickets.map((item) => (
+                {ticketStore.tickets.map((item) => (
                     <Item key={item.id} >
                         <Item.Content>
                             <Item.Header as={'a'}>{item.title}</Item.Header>
@@ -20,8 +18,8 @@ export default function TicketList({ tickets, handleSelectTicket, deleteTicket }
                                 <div>{item.id}</div>
                             </Item.Description>
                             <Item.Extra>
-                                <Button floated='right' content='Delete' onClick={() => { deleteTicket(item.id); }} color='red'></Button>
-                                <Button floated='right' content='View' onClick={() => { handleSelectTicket(item.id); }} color='blue'></Button>
+                                <Button floated='right' content='Delete' onClick={() => { }} color='red'></Button>
+                                <Button floated='right' content='View' onClick={() => { ticketStore.selectTicket(item.id); }} color='blue'></Button>
                                 <Label basic content={item.status}></Label>
                             </Item.Extra>
                         </Item.Content>

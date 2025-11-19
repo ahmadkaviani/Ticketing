@@ -4,40 +4,35 @@ import { Ticket } from './Ticket';
 import TicketList from './TicketList';
 import TicketDetail from './TicketDetail';
 import TicketForm from './TicketForm';
+import { useStore } from './stores/store';
+import { observer } from 'mobx-react-lite';
 
-interface Props {
-    tickets: Ticket[];
-    selectedTicket: Ticket | undefined;
-    handleSelectTicket: (id: string) => void;
-    handleCancelTicket: () => void;
-    editMode: boolean;
-    handleFormOpen: (id: string) => void;
-    handleFormClose: () => void;
-    createOrEditTicket : (ticket:Ticket) => void;
-    deleteTicket : (id: string) => void;
-}
 
-export default function TicketsDashboard({ tickets, selectedTicket, handleSelectTicket, handleCancelTicket, editMode, handleFormOpen, handleFormClose, createOrEditTicket, deleteTicket }: Props) {
+
+export default observer(function TicketsDashboard() {
+    
+    const {ticketStore} = useStore();
+    
     return (
         <Container style={{ marginTop: '7em' }} >
             <Grid>
                 <Grid.Column width={10}>
 
-                    <TicketList tickets={tickets} handleSelectTicket={handleSelectTicket} deleteTicket={deleteTicket} ></TicketList>
+                    <TicketList ></TicketList>
 
                 </Grid.Column>
                 <Grid.Column width={6}>
-                    {selectedTicket &&
+                    { ticketStore.selectedTicket &&
                         <>
-                            <TicketDetail ticket={selectedTicket} handleCancelTicket={handleCancelTicket} handleFormOpen={handleFormOpen} />
+                            <TicketDetail />
                         </>
                     }
-                    {editMode &&
-                        <TicketForm handleFormClose={handleFormClose} selectedTicket={selectedTicket} createOrEditTicket={createOrEditTicket} ></TicketForm>
+                    {ticketStore.editMode &&
+                        <TicketForm ></TicketForm>
                     }
 
                 </Grid.Column>
             </Grid>
         </Container>
     );
-}
+})

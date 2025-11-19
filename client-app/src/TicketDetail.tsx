@@ -11,36 +11,35 @@ import {
     ButtonGroup
 } from 'semantic-ui-react'
 import { Ticket } from './Ticket';
+import { useStore } from './stores/store';
 
-interface Props {
-    ticket: Ticket;
-    handleCancelTicket: () => void;
-    handleFormOpen: (id:string) => void;
-}
 
-export default function TicketDetail({ ticket, handleCancelTicket, handleFormOpen }: Props) {
+export default function TicketDetail() {
+
+    const {ticketStore} = useStore();    
+
     return (
         <Card>
             <Image src='https://react.semantic-ui.com/images/avatar/large/matthew.png' wrapped ui={false} />
             <CardContent>
-                <CardHeader>{ticket.title}</CardHeader>
+                <CardHeader>{ticketStore.selectedTicket?.title}</CardHeader>
                 <CardMeta>
-                    <span className='date'>{ticket.initiateTime}</span>
+                    <span className='date'>{ticketStore.selectedTicket?.initiateTime}</span>
                 </CardMeta>
                 <CardDescription>
-                    {ticket.lastModifiedTime}
+                    {ticketStore.selectedTicket?.lastModifiedTime}
                 </CardDescription>
             </CardContent>
             <CardContent extra>
                 <a>
                     <Icon name='user' />
-                    {ticket.status}
+                    {ticketStore.selectedTicket?.status}
                 </a>
             </CardContent>
             <CardContent extra>
                 <ButtonGroup>
-                    <Button floated="right" basic color='blue' content="Edit" onClick={() => {handleFormOpen(ticket.id)}} />
-                    <Button floated="right" basic color='grey' content="Cancel" onClick={handleCancelTicket} />
+                    <Button floated="right" basic color='blue' content="Edit" onClick={() => {ticketStore.formOpen(ticketStore.selectedTicket?.id)}} />
+                    <Button floated="right" basic color='grey' content="Cancel" onClick={() => {ticketStore.formClose()}} />
                 </ButtonGroup>
             </CardContent>
         </Card>
