@@ -6,12 +6,13 @@ import LoginForm from "../features/LoginForm";
 
 export const routes: RouteObject[] = [
     {
-        path : '/',
+        path: '/',
         element: <App />,
         children: [
-            {path: 'HomePage', element : <HomePage />},
-            {path: 'login', element : <LoginForm />},
-            {path: 'tickets', element : <TicketsDashboard />}
+            { path: '/', element: <HomePage /> },
+            { path: 'HomePage', element: <HomePage /> },
+            { path: 'login', element: <LoginForm /> },
+            { path: 'tickets', element: <TicketsDashboard /> }
         ]
     }
 ]

@@ -22,6 +22,13 @@ builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 
+builder.Services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>
+ {
+     builder.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+ }));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

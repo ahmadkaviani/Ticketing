@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 import { get } from 'http';
 import { Ticket } from '../Ticket';
+import { User, UserFormValues } from '../model/user';
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -36,8 +37,16 @@ const Tickets = {
        list: () => requests.get<Ticket[]>('/tickets'),
 }
 
+const Account = {
+    current : () => requests.get<User>('/account'),
+    login : (user: UserFormValues) => requests.post<User>('/account/login',user),
+    register : (user: UserFormValues) => requests.post<User>('/account/register',user)
+}
+
+
 const agent = {
-    Tickets
+    Tickets,
+    Account
 }
 
 export default agent;
