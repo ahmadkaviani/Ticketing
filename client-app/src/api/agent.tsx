@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from 'axios'
 import { get } from 'http';
 import { Ticket } from '../Ticket';
 import { User, UserFormValues } from '../model/user';
+import { store } from '../stores/store';
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -23,6 +24,12 @@ axios.interceptors.response.use(async response => {
 })
 
 const responseBody = <T,>(response: AxiosResponse<T>) => response.data;
+
+axios.interceptors.request.use(config => {
+    const token = store.commonStore.token;
+    if(token && config.headers) config.headers.Authorization = `Bearer ${token}`;
+    return config;
+});
 
 const requests = {
     get: <T,>(url: string) => axios.get<T>(url).then(responseBody),

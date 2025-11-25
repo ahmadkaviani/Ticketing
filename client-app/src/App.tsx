@@ -5,46 +5,62 @@ import axios from 'axios';
 import { Ticket } from './Ticket';
 import NavBar from './NavBar';
 import TicketsDashboard from './TicketsDashboard';
-import {v4 as uuid} from 'uuid'
+import { v4 as uuid } from 'uuid'
 import agent from './api/agent'
 import { useStore } from './stores/store';
 import { observer } from 'mobx-react-lite';
 import { Container } from 'semantic-ui-react';
 import { Outlet } from 'react-router-dom';
 
+
 function App() {
 
-  const {ticketStore} = useStore();
-  const [tickets, setTickets] = React.useState<Ticket[]>([]);
+  // const {ticketStore} = useStore();
+  // const [tickets, setTickets] = React.useState<Ticket[]>([]);
 
 
-  useEffect(() => {
-    ticketStore.loadTickets();
+  // useEffect(() => {
+  //   ticketStore.loadTickets();
 
-  }, [ticketStore]);
+  // }, [ticketStore]);
 
-  
-  function createOrEditTicket(ticket:Ticket)
-  {
-    ticket.id 
-      ? setTickets([...tickets.filter(x => x.id != ticket.id),ticket])
-      : setTickets([...tickets,{...ticket,id:uuid()}]);
-  }
 
-  function deleteTicket(id:string)
-  {
-      setTickets([...tickets.filter(x => x.id != id)]);
-  }
+  // function createOrEditTicket(ticket:Ticket)
+  // {
+  //   ticket.id 
+  //     ? setTickets([...tickets.filter(x => x.id != ticket.id),ticket])
+  //     : setTickets([...tickets,{...ticket,id:uuid()}]);
+  // }
 
-  if (ticketStore.loading) return <div>Loading tickets...</div>;
+  // function deleteTicket(id:string)
+  // {
+  //     setTickets([...tickets.filter(x => x.id != id)]);
+  // }
+
+  //if (ticketStore.loading) return <div>Loading tickets...</div>;
+
+
+
+  const { commonStore, userStore } = useStore();
+
+  useEffect(
+    () => {
+      if (commonStore.token) {
+        userStore.getUser().finally(() => { commonStore.setAppLoaded() });
+      } else {
+        commonStore.setAppLoaded();
+      }
+    },
+    [userStore, commonStore]
+  );
 
   return (
     <>
       <NavBar></NavBar>
-      <Container style={{marginTop : '7em'}} >
+      <Container style={{ marginTop: '7em' }} >
         <Outlet></Outlet>
       </Container>
-      
+
     </>
   );
 }
