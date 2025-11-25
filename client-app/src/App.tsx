@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import './index.css';
 import axios from 'axios';
 import { Ticket } from './Ticket';
 import NavBar from './NavBar';
@@ -11,6 +12,7 @@ import { useStore } from './stores/store';
 import { observer } from 'mobx-react-lite';
 import { Container } from 'semantic-ui-react';
 import { Outlet } from 'react-router-dom';
+import NavMenu from './NavMenu';
 
 
 function App() {
@@ -56,7 +58,7 @@ function App() {
 
   return (
     <>
-      <NavBar></NavBar>
+      <NavMenu></NavMenu>
       <Container style={{ marginTop: '7em' }} >
         <Outlet></Outlet>
       </Container>
