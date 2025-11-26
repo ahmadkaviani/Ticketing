@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react';
 import { Container, Grid, Header, List, ListItem } from 'semantic-ui-react';
 import { Ticket } from './Ticket';
 import TicketList from './TicketList';
@@ -12,6 +12,7 @@ import { observer } from 'mobx-react-lite';
 export default observer(function TicketsDashboard() {
     
     const {ticketStore} = useStore();
+    
     
     return (
         <Container style={{ marginTop: '7em' }} >

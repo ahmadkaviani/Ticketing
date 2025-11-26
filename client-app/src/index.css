@@ -8,8 +8,12 @@ body {
 }
 
 body, .ui {
-  font-family: 'Vazirmatn', sans-serif !important;
+  font-family: 'Vazirmatn' , sans-serif !important;
+   direction: rtl;
+    text-align: right;
 }
+
+.ui.items>.item>.content>.header{font-family: 'Vazirmatn' , sans-serif !important;}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
