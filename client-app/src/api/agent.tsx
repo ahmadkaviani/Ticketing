@@ -44,6 +44,10 @@ const Tickets = {
        list: () => requests.get<Ticket[]>('/tickets'),
 }
 
+const Comments = {
+       list: (ticketId:string) => requests.get<Comment[]>('/comments/' + ticketId),
+}
+
 const Account = {
     current : () => requests.get<User>('/account'),
     login : (user: UserFormValues) => requests.post<User>('/account/login',user),
@@ -53,6 +57,7 @@ const Account = {
 
 const agent = {
     Tickets,
+    Comments,
     Account
 }
 
