@@ -27,6 +27,12 @@ namespace API.Extentions
             services.AddMediatR(typeof(Application.Tickets.Edit.Handler));
             services.AddMediatR(typeof(Application.Tickets.Delete.Handler));
 
+            services.AddMediatR(typeof(Application.Comments.List.Handler));
+            services.AddMediatR(typeof(Application.Comments.Detail.Handler));
+            services.AddMediatR(typeof(Application.Comments.Create.Handler));
+            services.AddMediatR(typeof(Application.Comments.Edit.Handler));
+            services.AddMediatR(typeof(Application.Comments.Delete.Handler));
+
             services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 
             return services;

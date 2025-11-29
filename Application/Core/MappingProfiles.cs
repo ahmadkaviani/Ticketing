@@ -7,7 +7,9 @@ namespace Application.Core
     {
         public MappingProfiles()
         {
-             CreateMap<Ticket,Ticket>();
-        }   
+            CreateMap<Ticket, Ticket>();
+
+            CreateMap<Comment, Comment>();
+        }
     }
 }

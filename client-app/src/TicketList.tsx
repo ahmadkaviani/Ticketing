@@ -5,6 +5,7 @@ import { useStore } from './stores/store';
 import { observer } from 'mobx-react-lite';
 import './index.css';
 import { toFarsiStatus, toShamsiDateTime } from './common/Helper';
+import { Link } from 'react-router-dom';
 
 
 export default observer (function TicketList() {
@@ -32,7 +33,8 @@ export default observer (function TicketList() {
                             </Item.Description>
                             <Item.Extra>
                                 {/* <Button floated='right' content='Delete' onClick={() => { }} color='red'></Button> */}
-                                <Button floated='right' content='مشاهده' onClick={() => { ticketStore.selectTicket(item.id); }} color='blue'></Button>
+                                {/* <Button floated='right' content='مشاهده' onClick={() => { ticketStore.selectTicket(item.id); }} color='blue'></Button> */}
+                                <Button floated='right' content='مشاهده' as={Link} to={'/comments/' + (item.id) } color='blue'></Button>
                                 <Label basic content={toFarsiStatus(item.status)}></Label>
                             </Item.Extra>
                         </Item.Content>
