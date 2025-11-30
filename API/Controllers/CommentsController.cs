@@ -1,10 +1,9 @@
+using API.DTOs;
 using Application.Comments;
 using Domain;
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Persistence;
+
 
 namespace API.Controllers
 {
@@ -24,10 +23,19 @@ namespace API.Controllers
         //     return await Mediator.Send(new Detail.Query() { Id = id });
         // }
 
+        [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> CreateComment(Comment comment)
+        public async Task<IActionResult> CreateComment(CommentDto comment)
         {
-            return Ok(await Mediator.Send(new Create.Command { Comment = comment }));
+            Comment c = new Comment();
+
+            c.Id = new Guid();
+            c.TicketId = comment.TicketId.ToLower();
+            c.Text = comment.Text;
+            c.CreationDate = DateTime.Now;
+            c.UserId = "1d3bf4c1-b32a-45cb-a1b9-fda971e2056e";
+
+            return Ok(await Mediator.Send(new Create.Command { Comment = c }));
         }
 
         [HttpPut("{id}")]

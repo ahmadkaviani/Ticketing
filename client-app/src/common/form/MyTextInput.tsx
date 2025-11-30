@@ -15,7 +15,7 @@ export default function MyTextInput(props:Props) {
     return (
         <Form.Field error={meta.touched && !!meta.error}>
             <Label>{props.label}</Label>
-            <input {...field} {...props} />
+            <textarea style={{fontFamily : 'Vazirmatn'}} {...field} {...props}  />
             {meta.touched && meta.error ? <Label basic color='red'>{meta.error}</Label> : null }
         </Form.Field>
     )

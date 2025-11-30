@@ -20,6 +20,8 @@ namespace Application.Comments
             }
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
+                
+
                  _dataContext.Comments.Add(request.Comment);
                  await _dataContext.SaveChangesAsync();
                  return Unit.Value;

@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 import { get } from 'http';
 import { Ticket } from '../Ticket';
+import { Comment } from '../Comment';
 import { User, UserFormValues } from '../model/user';
 import { store } from '../stores/store';
 
@@ -27,7 +28,7 @@ const responseBody = <T,>(response: AxiosResponse<T>) => response.data;
 
 axios.interceptors.request.use(config => {
     const token = store.commonStore.token;
-    if(token && config.headers) config.headers.Authorization = `Bearer ${token}`;
+    if (token && config.headers) config.headers.Authorization = `Bearer ${token}`;
     return config;
 });
 
@@ -41,17 +42,23 @@ const requests = {
 
 
 const Tickets = {
-       list: () => requests.get<Ticket[]>('/tickets'),
+    list: () => requests.get<Ticket[]>('/tickets'),
+    detail: (ticketId: string) => requests.get<Ticket>('/tickets/' + ticketId),
 }
 
 const Comments = {
-       list: (ticketId:string) => requests.get<Comment[]>('/comments/' + ticketId),
+    list: (ticketId: string) => requests.get<Comment[]>('/comments/' + ticketId),
+    create: (comment: Comment) => requests.post<void>('/comments/', comment),
+    createWithAttachments: (formData: FormData) =>
+        axios.post('/comments/withFiles', formData, { headers: { 'Content-Type': 'multipart/form-data' } }),
+    uploadAttachments: (formData: FormData) =>
+        axios.post('/comments/upload', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
 }
 
 const Account = {
-    current : () => requests.get<User>('/account'),
-    login : (user: UserFormValues) => requests.post<User>('/account/login',user),
-    register : (user: UserFormValues) => requests.post<User>('/account/register',user)
+    current: () => requests.get<User>('/account'),
+    login: (user: UserFormValues) => requests.post<User>('/account/login', user),
+    register: (user: UserFormValues) => requests.post<User>('/account/register', user)
 }
 
 
