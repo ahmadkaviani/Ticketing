@@ -7,4 +7,5 @@ public class Comment
     public string Text { get; set; }
     public DateTime CreationDate { get; set; }
     public string UserId { get; set; }
+     public ICollection<Attachment> Attachments { get; set; } = new List<Attachment>();
 }

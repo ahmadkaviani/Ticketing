@@ -11,6 +11,9 @@ const sleep = (delay: number) => {
     })
 }
 
+const instance = axios.create({
+  baseURL: '/api/comments' // یا base عمومی و بعد مسیر کامل
+});
 
 axios.defaults.baseURL = 'http://localhost:5152/api';
 
@@ -52,7 +55,10 @@ const Comments = {
     createWithAttachments: (formData: FormData) =>
         axios.post('/comments/withFiles', formData, { headers: { 'Content-Type': 'multipart/form-data' } }),
     uploadAttachments: (formData: FormData) =>
-        axios.post('/comments/upload', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+        axios.post('/comments/upload', formData, { headers: { 'Content-Type': 'multipart/form-data' } }),
+      downloadAttachment: (commentId: string, attachmentId: string) =>
+    instance.get(`/${commentId}/attachments/${attachmentId}`, { responseType: 'blob' })
+      .then(r => r.data)
 }
 
 const Account = {

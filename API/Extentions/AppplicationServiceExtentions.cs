@@ -30,6 +30,8 @@ namespace API.Extentions
             services.AddMediatR(typeof(Application.Comments.List.Handler));
             services.AddMediatR(typeof(Application.Comments.Detail.Handler));
             services.AddMediatR(typeof(Application.Comments.Create.Handler));
+            services.AddMediatR(typeof(Application.Comments.CreateWithAttachments.Handler));
+            services.AddMediatR(typeof(Application.Comments.UploadAttachments.Handler));
             services.AddMediatR(typeof(Application.Comments.Edit.Handler));
             services.AddMediatR(typeof(Application.Comments.Delete.Handler));
 

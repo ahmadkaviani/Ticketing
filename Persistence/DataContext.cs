@@ -11,4 +11,5 @@ public class DataContext : IdentityDbContext<AppUser>
 
     public DbSet<Ticket> Tickets { get; set; }
     public DbSet<Comment> Comments { get; set; }
+    public DbSet<Attachment> Attachments { get; set; }
 }
