@@ -36,7 +36,7 @@ export default observer(function NavMenu() {
                           gap: '8px',
                           direction: 'rtl !important', 'text-align': 'right !important'
                         }}  ></DropdownItem>
-                      <DropdownItem as={Link} to={''}
+                      <DropdownItem as={Link} to={'faq'}
                         text='سوالات متداول' icon='question'
                         style={{
                           display: 'flex',

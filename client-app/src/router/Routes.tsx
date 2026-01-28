@@ -4,6 +4,7 @@ import HomePage from "../features/home/HomePage";
 import TicketsDashboard from "../TicketsDashboard";
 import LoginForm from "../features/LoginForm";
 import CommentsDashboard from "../CommentsDashboard";
+import FAQ from "../FAQ";
 
 export const routes: RouteObject[] = [
     {
@@ -13,6 +14,7 @@ export const routes: RouteObject[] = [
             { path: '/', element: <HomePage /> },
             { path: 'HomePage', element: <HomePage /> },
             { path: 'login', element: <LoginForm /> },
+            { path: 'faq', element: <FAQ /> },
             { path: 'tickets', element: <TicketsDashboard /> },
             { path: 'comments/:ticketId?', element: <CommentsDashboard /> }           
         ]
