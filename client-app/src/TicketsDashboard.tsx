@@ -19,12 +19,12 @@ export default observer(function TicketsDashboard() {
             <Button positive content='ثبت تیکت جدید' onClick={() => { ticketStore.formOpen() }}></Button>
             <Container style={{ marginTop: '2em' }} >
                 <Grid>
-                    <Grid.Column width={10}>
+                    <Grid.Column width={13}>
 
                         <TicketList ></TicketList>
 
                     </Grid.Column>
-                    <Grid.Column width={6}>
+                    <Grid.Column width={3}>
                         {ticketStore.selectedTicket &&
                             <>
                                 <TicketDetail />

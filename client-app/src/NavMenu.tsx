@@ -27,6 +27,24 @@ export default observer(function NavMenu() {
                 <div style={{ direction: 'rtl' }}>
                   <Dropdown pointing='top left' text={userStore.user?.displayName}  >
                     <DropdownMenu style={{ direction: 'rtl', textAlign: 'right', 'text-align': 'right' }}>
+                      <DropdownItem as={Link} to={'tickets'}
+                        text='تیکت های من' icon='ticket'
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'row-reverse',
+                          justifyContent: 'flex-start',
+                          gap: '8px',
+                          direction: 'rtl !important', 'text-align': 'right !important'
+                        }}  ></DropdownItem>
+                      <DropdownItem as={Link} to={''}
+                        text='سوالات متداول' icon='question'
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'row-reverse',
+                          justifyContent: 'flex-start',
+                          gap: '8px',
+                          direction: 'rtl !important', 'text-align': 'right !important'
+                        }}  ></DropdownItem>
                       <DropdownItem as={Link} to={''}
                         text='پروفایل من' icon='user'
                         style={{

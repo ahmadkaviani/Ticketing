@@ -15,7 +15,10 @@ export default function MyTextInput(props:Props) {
     return (
         <Form.Field error={meta.touched && !!meta.error}>
             <Label>{props.label}</Label>
-            <textarea style={{fontFamily : 'Vazirmatn'}} {...field} {...props}  />
+            {props.type == 'textarea' &&
+            <textarea style={{fontFamily : 'Vazirmatn'}} {...field} {...props}  /> }
+            {(!props.type || props.type == 'text' || props.type == 'password' ) &&
+            <input style={{fontFamily : 'Vazirmatn'}} {...field} {...props}  /> }
             {meta.touched && meta.error ? <Label basic color='red'>{meta.error}</Label> : null }
         </Form.Field>
     )

@@ -115,7 +115,7 @@ export default observer(function CommentForm(props: Props) {
       >
         {({ handleSubmit, isValid, isSubmitting, dirty, setFieldValue }) => (
           <Form onSubmit={handleSubmit} encType="multipart/form-data">
-            <MyTextInput name="text" placeholder="متن پیام"></MyTextInput>
+            <MyTextInput name="text" placeholder="متن پیام" type="textarea"></MyTextInput>
 
             {/* File upload area */}
             <FormField>
